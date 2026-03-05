@@ -1,11 +1,13 @@
 package com.marcelo.sistemaplanodesaude.beneficiarios.domain;
 
+import com.marcelo.sistemaplanodesaude.documentos.domain.Documento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -33,4 +35,7 @@ public class Beneficiario {
 
     @Column(name = "data_atualizacao", nullable = false)
     private LocalDate dataAtualizacao;
+
+    @OneToMany(mappedBy = "beneficiario")
+    private List<Documento> documentos;
 }
