@@ -36,6 +36,6 @@ public class Beneficiario {
     @Column(name = "data_atualizacao", nullable = false)
     private LocalDate dataAtualizacao;
 
-    @OneToMany(mappedBy = "beneficiario")
+    @OneToMany(mappedBy = "beneficiario", cascade = CascadeType.PERSIST)
     private List<Documento> documentos;
 }
