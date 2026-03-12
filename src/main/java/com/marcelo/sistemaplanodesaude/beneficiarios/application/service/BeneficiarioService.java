@@ -1,7 +1,9 @@
 package com.marcelo.sistemaplanodesaude.beneficiarios.application.service;
 
-import org.springframework.stereotype.Service;
+import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioRequest;
+import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioResponse;
 
-@Service
 public interface BeneficiarioService {
+
+    BeneficiarioResponse adicionarBeneficiario(BeneficiarioRequest beneficiarioRequest);
 }

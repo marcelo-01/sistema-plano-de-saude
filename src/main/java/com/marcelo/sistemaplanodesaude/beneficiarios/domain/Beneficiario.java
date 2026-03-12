@@ -1,12 +1,15 @@
 package com.marcelo.sistemaplanodesaude.beneficiarios.domain;
 
+import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioRequest;
 import com.marcelo.sistemaplanodesaude.documentos.domain.Documento;
+import com.marcelo.sistemaplanodesaude.documentos.dto.DocumentoRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +39,20 @@ public class Beneficiario {
     @Column(name = "data_atualizacao", nullable = false)
     private LocalDate dataAtualizacao;
 
-    @OneToMany(mappedBy = "beneficiario", cascade = CascadeType.PERSIST)
-    private List<Documento> documentos;
+    @OneToMany(mappedBy = "beneficiario", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<Documento> documentos = new ArrayList<>();
+
+    public Beneficiario(BeneficiarioRequest beneficiarioRequest){
+        this.nome = beneficiarioRequest.getNome();
+        this.telefone = beneficiarioRequest.getTelefone();
+        this.dataNascimento = beneficiarioRequest.getDataNascimento();
+        this.dataInclusao = LocalDate.now();
+        this.dataAtualizacao = LocalDate.now();
+    }
+
+    public void adicionarDocumento(DocumentoRequest documentoRequest){
+        Documento documentoAdicionado = new Documento(documentoRequest, this);
+
+        this.documentos.add(documentoAdicionado);
+    }
 }

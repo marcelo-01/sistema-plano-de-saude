@@ -1,6 +1,7 @@
 package com.marcelo.sistemaplanodesaude.documentos.domain;
 
 import com.marcelo.sistemaplanodesaude.beneficiarios.domain.Beneficiario;
+import com.marcelo.sistemaplanodesaude.documentos.dto.DocumentoRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,7 +33,15 @@ public class Documento {
     @Column(name = "data_atualizacao", nullable = false)
     private LocalDate dataAtualizacao;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_beneficiario", referencedColumnName = "id", nullable = false)
     private Beneficiario beneficiario;
+
+    public Documento(DocumentoRequest documentoRequest, Beneficiario beneficiario) {
+        this.tipoDocumento = documentoRequest.getTipoDocumento();
+        this.descricao = documentoRequest.getDescricao();
+        this.dataInclusao = LocalDate.now();
+        this.dataAtualizacao = LocalDate.now();
+        this.beneficiario = beneficiario;
+    }
 }
