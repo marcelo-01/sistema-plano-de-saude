@@ -2,7 +2,7 @@ spring:
   application:
     name: sistemaplanodesaude
   datasource:
-    url: jdbc:postgresql://localhost:5432/funcionarios
+    url: jdbc:postgresql://localhost:5432/sistemaplanodesaude
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
