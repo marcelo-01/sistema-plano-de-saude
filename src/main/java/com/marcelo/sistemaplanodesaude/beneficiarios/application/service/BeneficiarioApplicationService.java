@@ -4,6 +4,7 @@ import com.marcelo.sistemaplanodesaude.beneficiarios.application.repository.Bene
 import com.marcelo.sistemaplanodesaude.beneficiarios.domain.Beneficiario;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioRequest;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioResponse;
+import com.marcelo.sistemaplanodesaude.exceptions.BeneficiarioJaExisteException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,14 @@ public class BeneficiarioApplicationService implements BeneficiarioService{
 
     @Override
     public BeneficiarioResponse adicionarBeneficiario(BeneficiarioRequest beneficiarioRequest){
+        boolean beneficiarioJaExiste = beneficiarioRepository.existsByNomeAndTelefone(
+                beneficiarioRequest.getNome(),
+                beneficiarioRequest.getTelefone()
+        );
+        if (beneficiarioJaExiste){
+            throw new BeneficiarioJaExisteException();
+        }
+
         Beneficiario beneficiarioAdicionado = new Beneficiario(beneficiarioRequest);
         beneficiarioRequest.getDocumentos().forEach(beneficiarioAdicionado::adicionarDocumento);
 
