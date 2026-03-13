@@ -2,11 +2,15 @@ package com.marcelo.sistemaplanodesaude.beneficiarios.application.service;
 
 import com.marcelo.sistemaplanodesaude.beneficiarios.application.repository.BeneficiarioRepository;
 import com.marcelo.sistemaplanodesaude.beneficiarios.domain.Beneficiario;
+import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioListResponse;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioRequest;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioResponse;
 import com.marcelo.sistemaplanodesaude.exceptions.BeneficiarioJaExisteException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +34,17 @@ public class BeneficiarioApplicationService implements BeneficiarioService{
         beneficiarioRepository.save(beneficiarioAdicionado);
         return new BeneficiarioResponse(beneficiarioAdicionado);
     }
-}
 
+    @Override
+    public List<BeneficiarioListResponse> listarBeneficiarios() {
+        List<Beneficiario> beneficiarios = beneficiarioRepository.findAll();
+
+        List<BeneficiarioListResponse> beneficiarioListResponses = beneficiarios
+                .stream()
+                .map(BeneficiarioListResponse::new)
+                .collect(Collectors.toList());
+
+        return beneficiarioListResponses;
+    }
+
+}
