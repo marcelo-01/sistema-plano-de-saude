@@ -15,4 +15,10 @@ public class GlobalExcepcionHandler {
     public ApiError handleBeneficiarioJaExiste(BeneficiarioJaExisteException e){
         return new ApiError(409, e.getMessage(), LocalDateTime.now());
     }
+
+    @ExceptionHandler(BeneficiarioNaoExisteException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiError handleBeneficiarioNaoExiste(BeneficiarioNaoExisteException e){
+        return new ApiError(404, e.getMessage(), LocalDateTime.now());
+    }
 }

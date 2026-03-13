@@ -4,11 +4,13 @@ import com.marcelo.sistemaplanodesaude.beneficiarios.domain.Beneficiario;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioListResponse;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioRequest;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioResponse;
+import com.marcelo.sistemaplanodesaude.documentos.dto.DocumentoResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/public/beneficiario")
@@ -21,4 +23,7 @@ public interface BeneficiarioApi {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     List<BeneficiarioListResponse> listarUsuarios();
+
+    @GetMapping("/documentos/{idBeneficiario}")
+    List<DocumentoResponse> listarDocumentosPorBeneficiario(@PathVariable UUID idBeneficiario);
 }
