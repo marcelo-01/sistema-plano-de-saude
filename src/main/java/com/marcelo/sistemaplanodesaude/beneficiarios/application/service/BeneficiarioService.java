@@ -18,4 +18,6 @@ public interface BeneficiarioService {
     List<DocumentoResponse> listarDocumentosPorBeneficiario(UUID idBeneficiario);
 
     BeneficiarioDocumentoResponse atualizarBeneficiario(UUID idBeneficiario, BeneficiarioAtualizaRequest beneficiarioRequest);
+
+    void deletarBeneficiairo(UUID idBeneficiario);
 }

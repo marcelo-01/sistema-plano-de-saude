@@ -40,7 +40,7 @@ public class Beneficiario {
     @Column(name = "data_atualizacao", nullable = false)
     private LocalDate dataAtualizacao;
 
-    @OneToMany(mappedBy = "beneficiario", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "beneficiario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Documento> documentos = new ArrayList<>();
 
     public Beneficiario(BeneficiarioRequest beneficiarioRequest){

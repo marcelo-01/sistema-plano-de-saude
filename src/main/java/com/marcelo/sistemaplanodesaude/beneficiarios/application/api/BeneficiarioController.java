@@ -38,4 +38,9 @@ public class BeneficiarioController implements BeneficiarioApi{
     public BeneficiarioDocumentoResponse atualizarBeneficiario(UUID idBeneficiario, BeneficiarioAtualizaRequest beneficiarioRequest) {
         return beneficiarioService.atualizarBeneficiario(idBeneficiario, beneficiarioRequest);
     }
+
+    @Override
+    public void deletarBeneficiario(UUID idBeneficiario) {
+        beneficiarioService.deletarBeneficiairo(idBeneficiario);
+    }
 }

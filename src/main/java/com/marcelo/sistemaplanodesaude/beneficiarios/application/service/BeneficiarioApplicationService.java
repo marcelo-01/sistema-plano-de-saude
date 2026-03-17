@@ -25,6 +25,11 @@ public class BeneficiarioApplicationService implements BeneficiarioService{
     private final BeneficiarioRepository beneficiarioRepository;
     private final DocumentoRepository documentoRepository;
 
+    private Beneficiario verificaBeneficiarioExiste(UUID idBeneficiario) {
+        return beneficiarioRepository.findById(idBeneficiario)
+                .orElseThrow(() -> new BeneficiarioNaoExisteException());
+    }
+
     @Override
     public BeneficiarioResponse adicionarBeneficiario(BeneficiarioRequest beneficiarioRequest){
         boolean beneficiarioJaExiste = beneficiarioRepository.existsByNomeAndTelefone(
@@ -56,8 +61,7 @@ public class BeneficiarioApplicationService implements BeneficiarioService{
 
     @Override
     public List<DocumentoResponse> listarDocumentosPorBeneficiario(UUID idBeneficiario) {
-        beneficiarioRepository.findById(idBeneficiario)
-                .orElseThrow(() -> new BeneficiarioNaoExisteException());
+        verificaBeneficiarioExiste(idBeneficiario);
 
         List<Documento> documentos = documentoRepository.findAllByBeneficiario_Id(idBeneficiario);
         List<DocumentoResponse> documentoResponses = documentos
@@ -70,13 +74,20 @@ public class BeneficiarioApplicationService implements BeneficiarioService{
 
     @Override
     public BeneficiarioDocumentoResponse atualizarBeneficiario(UUID idBeneficiario, BeneficiarioAtualizaRequest beneficiarioRequest) {
-        Beneficiario beneficiario = beneficiarioRepository.findById(idBeneficiario)
-                .orElseThrow(() -> new BeneficiarioNaoExisteException());
+        Beneficiario beneficiario = verificaBeneficiarioExiste(idBeneficiario);
 
         beneficiario.atualizaBeneficiario(beneficiarioRequest);
         beneficiarioRepository.save(beneficiario);
 
         return new BeneficiarioDocumentoResponse(beneficiario);
     }
+
+    @Override
+    public void deletarBeneficiairo(UUID idBeneficiario) {
+        Beneficiario beneficiario = verificaBeneficiarioExiste(idBeneficiario);
+
+        beneficiarioRepository.delete(beneficiario);
+    }
+
 
 }
