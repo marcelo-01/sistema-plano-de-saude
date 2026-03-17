@@ -1,5 +1,6 @@
 package com.marcelo.sistemaplanodesaude.beneficiarios.domain;
 
+import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioAtualizaRequest;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioRequest;
 import com.marcelo.sistemaplanodesaude.documentos.domain.Documento;
 import com.marcelo.sistemaplanodesaude.documentos.dto.DocumentoRequest;
@@ -54,5 +55,12 @@ public class Beneficiario {
         Documento documentoAdicionado = new Documento(documentoRequest, this);
 
         this.documentos.add(documentoAdicionado);
+    }
+
+    public void atualizaBeneficiario(BeneficiarioAtualizaRequest beneficiarioRequest){
+        this.nome = beneficiarioRequest.getNome();
+        this.telefone = beneficiarioRequest.getTelefone();
+        this.dataNascimento = beneficiarioRequest.getDataNascimento();
+        this.dataAtualizacao = LocalDate.now();
     }
 }

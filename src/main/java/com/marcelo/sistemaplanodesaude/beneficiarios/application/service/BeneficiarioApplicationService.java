@@ -2,7 +2,8 @@ package com.marcelo.sistemaplanodesaude.beneficiarios.application.service;
 
 import com.marcelo.sistemaplanodesaude.beneficiarios.application.repository.BeneficiarioRepository;
 import com.marcelo.sistemaplanodesaude.beneficiarios.domain.Beneficiario;
-import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioListResponse;
+import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioAtualizaRequest;
+import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioDocumentoResponse;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioRequest;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioResponse;
 import com.marcelo.sistemaplanodesaude.documentos.domain.Documento;
@@ -42,15 +43,15 @@ public class BeneficiarioApplicationService implements BeneficiarioService{
     }
 
     @Override
-    public List<BeneficiarioListResponse> listarBeneficiarios() {
+    public List<BeneficiarioDocumentoResponse> listarBeneficiarios() {
         List<Beneficiario> beneficiarios = beneficiarioRepository.findAll();
 
-        List<BeneficiarioListResponse> beneficiarioListResponses = beneficiarios
+        List<BeneficiarioDocumentoResponse> beneficiarioDocumentoRespons = beneficiarios
                 .stream()
-                .map(BeneficiarioListResponse::new)
+                .map(BeneficiarioDocumentoResponse::new)
                 .collect(Collectors.toList());
 
-        return beneficiarioListResponses;
+        return beneficiarioDocumentoRespons;
     }
 
     @Override
@@ -65,6 +66,17 @@ public class BeneficiarioApplicationService implements BeneficiarioService{
                 .collect(Collectors.toList());
 
         return documentoResponses;
+    }
+
+    @Override
+    public BeneficiarioDocumentoResponse atualizarBeneficiario(UUID idBeneficiario, BeneficiarioAtualizaRequest beneficiarioRequest) {
+        Beneficiario beneficiario = beneficiarioRepository.findById(idBeneficiario)
+                .orElseThrow(() -> new BeneficiarioNaoExisteException());
+
+        beneficiario.atualizaBeneficiario(beneficiarioRequest);
+        beneficiarioRepository.save(beneficiario);
+
+        return new BeneficiarioDocumentoResponse(beneficiario);
     }
 
 }

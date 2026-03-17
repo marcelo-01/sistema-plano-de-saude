@@ -1,7 +1,7 @@
 package com.marcelo.sistemaplanodesaude.beneficiarios.application.service;
 
-import com.marcelo.sistemaplanodesaude.beneficiarios.domain.Beneficiario;
-import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioListResponse;
+import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioAtualizaRequest;
+import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioDocumentoResponse;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioRequest;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioResponse;
 import com.marcelo.sistemaplanodesaude.documentos.dto.DocumentoResponse;
@@ -13,7 +13,9 @@ public interface BeneficiarioService {
 
     BeneficiarioResponse adicionarBeneficiario(BeneficiarioRequest beneficiarioRequest);
 
-    List<BeneficiarioListResponse> listarBeneficiarios();
+    List<BeneficiarioDocumentoResponse> listarBeneficiarios();
 
     List<DocumentoResponse> listarDocumentosPorBeneficiario(UUID idBeneficiario);
+
+    BeneficiarioDocumentoResponse atualizarBeneficiario(UUID idBeneficiario, BeneficiarioAtualizaRequest beneficiarioRequest);
 }

@@ -1,7 +1,7 @@
 package com.marcelo.sistemaplanodesaude.beneficiarios.application.api;
 
-import com.marcelo.sistemaplanodesaude.beneficiarios.domain.Beneficiario;
-import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioListResponse;
+import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioAtualizaRequest;
+import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioDocumentoResponse;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioRequest;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioResponse;
 import com.marcelo.sistemaplanodesaude.documentos.dto.DocumentoResponse;
@@ -22,8 +22,13 @@ public interface BeneficiarioApi {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    List<BeneficiarioListResponse> listarUsuarios();
+    List<BeneficiarioDocumentoResponse> listarUsuarios();
 
     @GetMapping("/documentos/{idBeneficiario}")
     List<DocumentoResponse> listarDocumentosPorBeneficiario(@PathVariable UUID idBeneficiario);
+
+    @PatchMapping("/{idBeneficiario}")
+    @ResponseStatus(HttpStatus.OK)
+    BeneficiarioDocumentoResponse atualizarBeneficiario(@PathVariable UUID idBeneficiario,
+                                                      @RequestBody @Valid BeneficiarioAtualizaRequest beneficiarioRequest);
 }

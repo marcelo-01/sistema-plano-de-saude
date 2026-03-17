@@ -2,7 +2,6 @@ package com.marcelo.sistemaplanodesaude.beneficiarios.dto;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.marcelo.sistemaplanodesaude.beneficiarios.domain.Beneficiario;
-import com.marcelo.sistemaplanodesaude.documentos.domain.Documento;
 import com.marcelo.sistemaplanodesaude.documentos.dto.DocumentoResponse;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,14 +14,14 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @JsonPropertyOrder({"id", "nome", "telefone", "dataNascimento", "documentos"})
-public class BeneficiarioListResponse {
+public class BeneficiarioDocumentoResponse {
     private UUID id;
     private String nome;
     private String telefone;
     private LocalDate dataNascimento;
     private List<DocumentoResponse> documentos;
 
-    public BeneficiarioListResponse(Beneficiario beneficiario){
+    public BeneficiarioDocumentoResponse(Beneficiario beneficiario){
         this.id = beneficiario.getId();
         this.nome = beneficiario.getNome();
         this.telefone = beneficiario.getTelefone();

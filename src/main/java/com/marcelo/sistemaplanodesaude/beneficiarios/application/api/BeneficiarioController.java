@@ -1,8 +1,8 @@
 package com.marcelo.sistemaplanodesaude.beneficiarios.application.api;
 
 import com.marcelo.sistemaplanodesaude.beneficiarios.application.service.BeneficiarioService;
-import com.marcelo.sistemaplanodesaude.beneficiarios.domain.Beneficiario;
-import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioListResponse;
+import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioAtualizaRequest;
+import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioDocumentoResponse;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioRequest;
 import com.marcelo.sistemaplanodesaude.beneficiarios.dto.BeneficiarioResponse;
 import com.marcelo.sistemaplanodesaude.documentos.dto.DocumentoResponse;
@@ -25,12 +25,17 @@ public class BeneficiarioController implements BeneficiarioApi{
     }
 
     @Override
-    public List<BeneficiarioListResponse> listarUsuarios() {
+    public List<BeneficiarioDocumentoResponse> listarUsuarios() {
         return beneficiarioService.listarBeneficiarios();
     }
 
     @Override
     public List<DocumentoResponse> listarDocumentosPorBeneficiario(UUID idBeneficiario) {
         return beneficiarioService.listarDocumentosPorBeneficiario(idBeneficiario);
+    }
+
+    @Override
+    public BeneficiarioDocumentoResponse atualizarBeneficiario(UUID idBeneficiario, BeneficiarioAtualizaRequest beneficiarioRequest) {
+        return beneficiarioService.atualizarBeneficiario(idBeneficiario, beneficiarioRequest);
     }
 }
