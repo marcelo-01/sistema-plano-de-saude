@@ -13,7 +13,6 @@ API REST para manter o cadastro de beneficiários de um plano de saúde, desenvo
 - **Spring Security**
 - **PostgreSQL**
 - **Lombok**
-- **Springdoc OpenAPI (Swagger)**
 - **Docker / Docker Compose**
 
 ---
@@ -58,16 +57,6 @@ Isso irá subir um container PostgreSQL com as seguintes configurações:
 ```
 
 A aplicação estará disponível em `http://localhost:8080`
-
----
-
-## Documentação da API
-
-Com a aplicação rodando, acesse o Swagger em:
-
-```
-http://localhost:8080/swagger-ui.html
-```
 
 ---
 
